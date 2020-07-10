@@ -26,12 +26,13 @@ plugins:
 ```
 Set schedule property in the your function's parameters
 ```
-hello:
-  handler: hello
-  events:
-    - event:
-        eventType: providers/cloud.pubsub/eventTypes/topic.publish
-        resource: 'projects/<projectId>/topics/<topicName>'
-        schedule: '* * * * *'
+functions
+  hello:
+    handler: hello
+    events:
+      - event:
+          eventType: providers/cloud.pubsub/eventTypes/topic.publish
+          resource: 'projects/<projectId>/topics/<topicName>'
+          schedule: '* * * * *'
 ```
 >[Configuring cron job schedules](https://cloud.google.com/scheduler/docs/configuring/cron-job-schedules)
