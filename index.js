@@ -58,6 +58,7 @@ class ServerlessPlugin {
 
     this.jobService = new JobServices(google, credentials);
     this.hooks = {
+      'after:remove:remove': () => this.setup('after:remove:remove'),
       'after:deploy:deploy': () => this.setup('after:deploy:deploy'),
     };
   }
@@ -74,7 +75,25 @@ class ServerlessPlugin {
     const { service } = this.serverless;
     const { provider, functions } = service;
 
-    this.createScheduleEvent(provider, functions);
+    switch (hook) {
+      case 'after:remove:remove':
+        this.removeAllJobs(provider);
+        break;
+      case 'after:deploy:deploy':
+        this.createScheduleEvent(provider, functions);
+        break;
+    }
+  }
+
+  removeAllJobs = async (provider) => {
+    const { project, region } = provider;
+
+    const parent = `projects/${project}/locations/${region}`;
+
+    const { data: { jobs = [] } } = await this.jobService.listJob(parent);
+    const promises = jobs.map(job => this.jobService.deleteJob(job.name));
+    const response = await Promise.all(promises);
+    console.log(response.length);
   }
 
   getJobName = (parent, name) => {
