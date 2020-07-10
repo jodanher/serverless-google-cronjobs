@@ -90,7 +90,7 @@ class ServerlessPlugin {
         const fn = functions[name];
         const jobName = this.getJobName(parent, fn.name);
 
-        const event = fn.events.filter(({ event }) => event).find(({ event: eventType }) => eventType === 'google.schedule.jobs');
+        const event = fn.events.filter(({ event }) => event).map(({ event }) => event).find(({ schedule }) => schedule);
         const jobExists = jobNames.includes(jobName);
 
         let action = 'none';
@@ -118,10 +118,8 @@ class ServerlessPlugin {
       response = await this.jobService.deleteJob(name);
     } else {
       const {
-        schedule: {
-          rate: schedule,
-          resource: topicName,
-        },
+        resource: topicName,
+        schedule,
       } = event;
 
       const resource = {
