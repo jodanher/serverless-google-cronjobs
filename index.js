@@ -54,43 +54,23 @@ class ServerlessPlugin {
       throw new Error('Compatible plug-in only for google provider');
     }
 
-    console.log(this.serverless.pluginManager.hooks);
+    // console.log(this.serverless.pluginManager.hooks);
 
     this.jobService = new JobServices(google, credentials);
-
     this.hooks = {
-      'before:config:credentials:config': () => this.log('before:config:credentials:config'),
-      'after:config:credentials:config': () => this.log('after:config:credentials:config'),
-      'create:create': () => this.log('create:create'),
-      'install:install': () => this.log('install:install'),
-      'before:package:cleanup': () => this.log('before:package:cleanup'),
-      'package:createDeploymentArtifacts': () => this.log('package:createDeploymentArtifacts'),
-      'package:function:package': () => this.log('package:function:package'),
-      'before:deploy:deploy': () => this.log('before:deploy:deploy'),
-      'after:deploy:deploy': () => this.setup(),
-      'invoke:local:loadEnvVars': () => this.log('invoke:local:loadEnvVars'),
-      'after:invoke:invoke': () => this.log('after:invoke:invoke'),
-      'after:invoke:local:invoke': () => this.log('after:invoke:local:invoke'),
-      'after:info:info': () => this.log('after:info:info'),
-      'after:logs:logs': () => this.log('after:logs:logs'),
-      'login:login': () => this.log('login:login'),
-      'logout:logout': () => this.log('logout:logout'),
-      'after:metrics:metrics': () => this.log('after:metrics:metrics'),
-      'after:remove:remove': () => this.log('after:remove:remove'),
-      'after:rollback:rollback': () => this.log('after:rollback:rollback'),
-      'slstats:slstats': () => this.log('slstats:slstats'),
-      'config:credentials:config': () => this.log('config:credentials:config'),
+      'after:deploy:deploy': () => this.setup('after:deploy:deploy'),
     };
   }
 
   log(name) {
     if (this.options.verbose) {
       const slsCli = this.serverless.cli;
-      slsCli.log(name, 'Hook');
+      slsCli.log(name);
     }
   }
 
-  setup = () => {
+  setup = (hook) => {
+    this.log(hook);
     const { service } = this.serverless;
     const { provider, functions } = service;
 
@@ -110,7 +90,7 @@ class ServerlessPlugin {
         const fn = functions[name];
         const jobName = this.getJobName(parent, fn.name);
 
-        const event = fn.events.find(event => Object.keys(event).includes('schedule'));
+        const event = fn.events.filter(({ event }) => event).find(({ event: eventType }) => eventType === 'google.schedule.jobs');
         const jobExists = jobNames.includes(jobName);
 
         let action = 'none';
