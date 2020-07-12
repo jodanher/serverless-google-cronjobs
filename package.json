@@ -1,7 +1,7 @@
 {
   "name": "serverless-google-cronjobs",
   "version": "1.0.1",
-  "author": "José Daniel Herszenhprn",
+  "author": "jodanher",
   "description": "Serverless Google create cron jobs -----------------------------",
   "homepage": "https://github.com/jodanher/serverless-google-cronjobs#readme",
   "main": "index.js",
@@ -21,9 +21,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:jodanher/serverless-google-cronjobs.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "bugs": {
     "url": "https://github.com/jodanher/serverless-google-cronjobs/issues"
