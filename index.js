@@ -139,10 +139,12 @@ class ServerlessPlugin {
       const {
         resource: topicName,
         schedule,
+        timeZone,
       } = event;
 
       const resource = {
         schedule,
+        timeZone: timeZone || 'utc',
         pubsubTarget: {
           topicName,
           attributes: {
