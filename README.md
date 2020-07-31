@@ -36,4 +36,6 @@ functions
           schedule: '* * * * *' # required
           timeZone: '* * * * *' # optional
 ```
+>[Supported Time Zone Values](https://cloud.google.com/dataprep/docs/html/Supported-Time-Zone-Values_66194188#american-time-zones)
+
 >[Configuring cron job schedules](https://cloud.google.com/scheduler/docs/configuring/cron-job-schedules)
