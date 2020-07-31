@@ -22,9 +22,6 @@
     "type": "git",
     "url": "git://github.com/jodanher/serverless-google-cronjobs.git"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "bugs": {
     "url": "https://github.com/jodanher/serverless-google-cronjobs/issues"
   }
