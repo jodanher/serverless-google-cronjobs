@@ -34,5 +34,6 @@ functions
           eventType: providers/cloud.pubsub/eventTypes/topic.publish
           resource: 'projects/<projectId>/topics/<topicName>'
           schedule: '* * * * *' # required
+          timeZone: '* * * * *' # optional
 ```
 >[Configuring cron job schedules](https://cloud.google.com/scheduler/docs/configuring/cron-job-schedules)
