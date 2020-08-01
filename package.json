@@ -1,6 +1,6 @@
 {
   "name": "@jodanher/serverless-google-cronjobs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "jodanher",
   "description": "Serverless Google create cron jobs -----------------------------",
   "homepage": "https://github.com/jodanher/serverless-google-cronjobs#readme",
