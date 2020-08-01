@@ -6,11 +6,11 @@ Follow below link to setup google account for deploying your first serveless app
 ## Setup
 
 ### Install Serverless
-```
+```bash
 npm install -g serverless
 ```
 ### Install Plugin
-```
+```bash
 npm install serverless-google-cronjobs
 ```
 
@@ -20,12 +20,12 @@ Update the ``credentials`` and your ``project`` property in the ``serverless.yml
 ## Usage
 
 Update the plugin list in the ``serverless.yml`` file.
-```
+```yaml
 plugins:
   - serverless-google-cronjobs
 ```
 Set schedule property in the your function's parameters
-```
+```yaml
 functions
   hello:
     handler: hello
@@ -34,8 +34,12 @@ functions
           eventType: providers/cloud.pubsub/eventTypes/topic.publish
           resource: 'projects/<projectId>/topics/<topicName>'
           schedule: '* * * * *' # required
-          timeZone: '* * * * *' # optional
+          timeZone: 'UTC' # optional
+          target: pubsubTarget, appEngineHttpTarget or httpTarget # required
 ```
->[Supported Time Zone Values](https://cloud.google.com/dataprep/docs/html/Supported-Time-Zone-Values_66194188#american-time-zones)
 
->[Configuring cron job schedules](https://cloud.google.com/scheduler/docs/configuring/cron-job-schedules)
+>[schedule](https://cloud.google.com/scheduler/docs/configuring/cron-job-schedules)
+
+>[timeZone](https://cloud.google.com/dataprep/docs/html/Supported-Time-Zone-Values_66194188#american-time-zones)
+
+>[target](hhttps://cloud.google.com/scheduler/docs/reference/rest/v1/projects.locations.jobs?hl=pt-br)

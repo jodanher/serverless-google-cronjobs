@@ -137,20 +137,15 @@ class ServerlessPlugin {
       response = await this.jobService.deleteJob(name);
     } else {
       const {
-        resource: topicName,
         schedule,
         timeZone = 'UTC',
+        target,
       } = event;
 
       const resource = {
         schedule,
         timeZone,
-        pubsubTarget: {
-          topicName,
-          attributes: {
-            timestamp: Date.now().toString(),
-          },
-        },
+        ...target,
       };
       switch (action) {
         case 'create':
